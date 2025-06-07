@@ -8,7 +8,7 @@ import (
     "fmt"
 )
 
-func ConnecetToPostgreeSql() (*gorm.DB, error){
+func ConnectTOPostgresql() (*gorm.DB, error){
 	err := godotenv.Load()
 	if err != nil {
 		log.Fatal("error load variable env")
@@ -18,14 +18,14 @@ func ConnecetToPostgreeSql() (*gorm.DB, error){
 	port := os.Getenv("DB_PORT")
 	user := os.Getenv("DB_USER")
 	pass := os.Getenv("DB_PASSWORD")
-	db := os.Getenv("DB_NAME")
+	dbname := os.Getenv("DB_NAME")
 
-	 dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host,port,user,password,dbname)
+	 dsn := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable", host,port,user,pass,dbname)
     db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
 	
 	if err != nil{
 		panic("failed connect to db")
 	}
-	
+
 	return db,nil
-}
+}	
